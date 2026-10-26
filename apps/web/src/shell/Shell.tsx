@@ -9,6 +9,7 @@ import { useT } from "@thinkrail/locales/react";
 import { IconButton } from "@thinkrail/ui/button";
 import { useEffect, useState } from "react";
 import { shortcutLabel } from "../commands";
+import { openFindInFiles } from "../findInFiles";
 import { NotificationPermissionPrompt, useAttentionNotifications } from "../notifications";
 import { AnalyticsConsentDialog } from "../panels/AnalyticsConsentDialog";
 import { canStartProjectlessChat, useFollowContinuations } from "../panels/chatActions";
@@ -45,6 +46,7 @@ import {
 import { UpdateInstallSurfaces, UpdateReadyButton, UpdateSettings, useUpdates } from "../updates";
 import { AppShortcuts } from "./AppShortcuts";
 import { BrandLogo } from "./BrandLogo";
+import { FindInFilesHost } from "./FindInFilesHost";
 import { JbcentralQuotaTopbar } from "./JbcentralQuotaTopbar";
 import { LayoutSettings } from "./LayoutSettings";
 import { useLocalLayoutState } from "./layoutState";
@@ -173,6 +175,7 @@ export function Shell() {
 			: {}),
 		...(contextRepoProject || canStartChat ? { onNewWorkspace: () => openNewWork() } : {}),
 		onSearch: () => useAppStore.getState().openSearch(),
+		onFindInFiles: openFindInFiles,
 	});
 	return (
 		<div data-testid="shell" className="grid h-full grid-cols-[minmax(0,1fr)] grid-rows-[auto_1fr]">
@@ -296,6 +299,7 @@ export function Shell() {
 				onToggleProjectsHome={homeProjects.toggle}
 				hasUpdateSettings={updates !== null}
 			/>
+			<FindInFilesHost />
 			<NotificationPermissionPrompt />
 			<Toaster />
 			<UpdateInstallSurfaces updates={updates} />
