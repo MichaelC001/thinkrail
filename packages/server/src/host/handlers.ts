@@ -277,7 +277,7 @@ import {
 import { startPlanReview } from "./requestReview";
 import { withChangeLock, withReviewLock } from "./reviewLock";
 import { runObservation } from "./runAnalytics";
-import { hostSearch } from "./search";
+import { hostSearch, publishSearchText } from "./search";
 import { scheduleLifecyclePass } from "./settledLifecycle";
 import { taskObservation } from "./taskAnalytics";
 import {
@@ -1338,6 +1338,8 @@ const handlers: WsHandlers = {
 	},
 
 	"search.query": (p, ctx) => hostSearch().query(ctx.clientKey, p),
+	"search.text": (p, ctx) =>
+		hostSearch().text(ctx.clientKey, p, (batch) => publishSearchText(ctx.clientKey, batch)),
 	"search.preview": (p) => hostSearch().preview(p),
 
 	"review.get": async (p) => {

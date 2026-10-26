@@ -128,7 +128,8 @@ export type TemplateReadLocation =
 	| { projectId: string; workspaceId?: never }
 	| { workspaceId?: never; projectId?: never };
 
-export const PROTOCOL_VERSION = 97;
+export const PROTOCOL_VERSION = 98;
+export const TEXT_SEARCH_PROTOCOL_VERSION = 98;
 export const CONTINUATION_PROTOCOL_VERSION = 97;
 export const CHATS_PROTOCOL_VERSION = 96;
 export const SEARCH_PROTOCOL_VERSION = 95;
@@ -460,6 +461,7 @@ export const WS_METHODS = {
 	historySearch: "history.search",
 	searchQuery: "search.query",
 	searchPreview: "search.preview",
+	searchText: "search.text",
 	reviewGet: "review.get",
 	reviewCommentAdd: "review.commentAdd",
 	reviewCommentUpdate: "review.commentUpdate",
@@ -509,6 +511,7 @@ export const WS_CHANNELS = {
 	workspaceRemoved: "workspace.removed",
 	workspaceFsChanged: "workspace.fsChanged",
 	chatContinuation: "chat.continuation",
+	searchTextResults: "search.textResults",
 	settingsChanged: "settings.changed",
 	hostUpdateAvailable: "host.updateAvailable",
 	feedbackInterview: "feedback.interview",
@@ -1100,6 +1103,16 @@ export interface WsMethodMap {
 		result: SearchQueryResult;
 	};
 	"search.preview": { params: SearchPreviewTarget; result: SearchPreviewResult };
+	"search.text": {
+		params: {
+			seq: number;
+			query: string;
+			context: SearchContext;
+			caseSensitive: boolean;
+			wholeWord: boolean;
+		};
+		result: { seq: number; superseded?: true };
+	};
 	"review.get": { params: { workspaceId: string }; result: ReviewSnapshot };
 	"review.commentAdd": {
 		params: {
