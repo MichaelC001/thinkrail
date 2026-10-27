@@ -381,7 +381,7 @@ function ItemBlock({
 								size="m"
 								data-testid="plan-start-review"
 								disabled={startDisabled}
-								title={startDisabled ? t("plan.item.reviewBusy") : undefined}
+								tooltip={startDisabled ? t("plan.item.reviewBusy") : undefined}
 								onClick={() => onStartReview(item.id)}
 								className="shrink-0 opacity-100 focus-visible:opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100"
 							>
@@ -782,7 +782,7 @@ function SessionBlock({
 					iconLeft={Plus}
 					data-testid="plan-add-task"
 					onClick={() => setAdding((v) => !v)}
-					title={t("plan.session.addTaskTitle")}
+					tooltip={t("plan.session.addTaskTitle")}
 					className="ml-auto shrink-0"
 				>
 					{t("plan.session.task")}
@@ -1130,7 +1130,7 @@ export default function PlanPane({
 							iconLeft={MessageSquare}
 							data-testid="plan-review-comments"
 							onClick={onOpenReview}
-							title={t("plan.header.commentsTitle")}
+							tooltip={t("plan.header.commentsTitle")}
 							className="shrink-0"
 						>
 							{t("plan.header.comments", { count: agentComments })}
@@ -1169,7 +1169,7 @@ export default function PlanPane({
 						data-diverged={openReview && diverged ? "" : undefined}
 						disabled={prBusy || sameBranch || (!!openReview && diverged && !integrateCommand)}
 						onClick={openReview && diverged ? copyIntegrateCommand : () => void openPrFlow(false)}
-						title={
+						tooltip={
 							sameBranch
 								? t("plan.openPr.sameBranch")
 								: openReview && diverged
