@@ -1373,7 +1373,7 @@ const handlers: WsHandlers = {
 	},
 };
 
-function isWsMethod(method: string): method is WsMethodName {
+export function isWsMethod(method: string): method is WsMethodName {
 	return Object.hasOwn(handlers, method);
 }
 
