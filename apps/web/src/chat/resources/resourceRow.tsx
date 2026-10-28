@@ -27,6 +27,8 @@ export type Resource =
 	| { kind: "command"; summary: BackgroundCommandSummary }
 	| { kind: "subagent"; summary: SubagentResourceSummary };
 
+export type ResourcesStaleness = "disconnected" | "refreshFailed" | "refreshing";
+
 export type ResourceState = "working" | "queued" | "stopping" | "done" | "failed" | "stopped";
 
 export type ResourceTarget =

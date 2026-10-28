@@ -13,6 +13,7 @@ import {
 	type Resource,
 	type ResourceActions,
 	ResourceRow,
+	type ResourcesStaleness,
 	type ResourceTarget,
 	resourceId,
 	resourceTarget,
@@ -30,6 +31,7 @@ export function ResourcesDock({
 	freshSubagents = [],
 	now,
 	authoritative,
+	staleness = null,
 	actions,
 	onInspect,
 	onStopCommand,
@@ -42,6 +44,7 @@ export function ResourcesDock({
 	freshSubagents?: readonly SubagentResourceSummary[];
 	now: number;
 	authoritative: boolean;
+	staleness?: ResourcesStaleness | null;
 	actions: ResourceActions;
 	onInspect: (resourceId: string) => void;
 	onStopCommand: (commandId: string) => void;
@@ -113,7 +116,11 @@ export function ResourcesDock({
 					<span>
 						{authoritative
 							? t("resources.dock.active", { count: rows.length })
-							: t("resources.dock.activeReconnecting", { count: rows.length })}
+							: staleness === "disconnected"
+								? t("resources.dock.activeReconnecting", { count: rows.length })
+								: staleness === "refreshFailed"
+									? t("resources.dock.activeOutOfDate", { count: rows.length })
+									: t("resources.dock.activeUpdating", { count: rows.length })}
 					</span>
 				) : null}
 				{fresh.length > 0 ? (

@@ -782,7 +782,7 @@ export default function ChatView({
 							now={now}
 							authoritative={resources.authoritative}
 							loading={resources.loading}
-							stale={resources.stale}
+							staleness={resources.staleness}
 							error={resources.projection?.error ?? null}
 							actions={resources.actions}
 							selectedId={inspectorSelectedId}
@@ -828,6 +828,7 @@ export default function ChatView({
 					onDismiss={markResultSeen}
 					now={now}
 					authoritative={resources.authoritative}
+					staleness={resources.staleness}
 					actions={resources.actions}
 					onInspect={openInspector}
 					onStopCommand={resources.stopCommand}
